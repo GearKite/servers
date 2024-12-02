@@ -38,7 +38,7 @@
       mkdir -p /home/${username}/.ssh
       cp ${config.age.secrets.vm-admin-id.path} /home/${username}/.ssh/id_ed25519
       chown -R ${username}:users /home/${username}/.ssh
-      chmod -R 0600 /home/${username}/.ssh
+      chmod -R 700 /home/${username}/.ssh
     '';
   };
 }
