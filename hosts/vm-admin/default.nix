@@ -12,6 +12,7 @@
     nixos-generators
     deploy-rs
     git
+    rsync
   ];
 
   systemd.services.clone-repo = {
