@@ -35,7 +35,13 @@
 
       deploy.nodes = {
         vm-admin = {
-          hostname = "192.168.233.32";
+          hostname = "fdc6:b53a:280e:095::100";
+          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-admin;
+          profiles.system.user = "root";
+          profiles.system.sshUser = vmUsername;
+        };
+        vm-minimal = {
+          hostname = "fdc6:b53a:280e:095::2000";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-admin;
           profiles.system.user = "root";
           profiles.system.sshUser = vmUsername;
