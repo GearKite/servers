@@ -6,6 +6,7 @@ let
   vm-admin = (builtins.readFile ./hosts/vm-admin/ssh_host_ed25519_key.pub);
   vm-minimal = (builtins.readFile ./hosts/vm-minimal/ssh_host_ed25519_key.pub);
   vm-public-ingress = (builtins.readFile ./hosts/vm-public-ingress/ssh_host_ed25519_key.pub);
+  vm-public-media = (builtins.readFile ./hosts/vm-public-media/ssh_host_ed25519_key.pub);
 
   systems = [ vm-admin vm-minimal ];
   everyone = systems ++ admins;
@@ -17,4 +18,6 @@ in
   "hosts/vm-minimal/ssh_host_ed25519_key.age".publicKeys = everyone;
 
   "hosts/vm-public-ingress/ssh_host_ed25519_key.age".publicKeys = [ vm-public-ingress ] ++ everyone;
+
+  "hosts/vm-public-media/ssh_host_ed25519_key.age".publicKeys = [ vm-public-media ] ++ everyone;
 }

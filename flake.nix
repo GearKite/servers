@@ -9,6 +9,8 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixarr.url = "github:rasmus-kirk/nixarr";
   };
   outputs = { self, nixpkgs, deploy-rs, ... }@inputs:
     let
@@ -27,6 +29,10 @@
           hostname = "vm-public-ingress";
           username = vmUsername;
         };
+        vm-public-media = helper.mkNixos {
+          hostname = "vm-public-media";
+          username = vmUsername;
+        };
         # Special configs
         vm-minimal = helper.mkNixos {
           hostname = "vm-minimal";
@@ -39,6 +45,7 @@
       };
 
       deploy.nodes = {
+        # TODO: use hostnames instead of hardcoded IPs
         vm-admin = {
           hostname = "fdc6:b53a:280e:095::100";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-admin;
@@ -48,6 +55,12 @@
         vm-public-ingress = {
           hostname = "fdc6:b53a:280e:095::101";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-public-ingress;
+          profiles.system.user = "root";
+          profiles.system.sshUser = vmUsername;
+        };
+        vm-public-media = {
+          hostname = "fdc6:b53a:280e:095::102";
+          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-public-media;
           profiles.system.user = "root";
           profiles.system.sshUser = vmUsername;
         };
