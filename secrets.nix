@@ -1,7 +1,8 @@
 let
   gk = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP9PZDZlYvsGOqmuzIiTxyTuVb0XXBsF+t0iF75BWuQz";
+  tl = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIiiNmXma1IijIE6U6CKsGcmfGf0gqSZ5S0fvZABv+tA";
 
-  admins = [ gk ];
+  admins = [ gk tl ];
 
   vm-admin = (builtins.readFile ./hosts/vm-admin/ssh_host_ed25519_key.pub);
   vm-minimal = (builtins.readFile ./hosts/vm-minimal/ssh_host_ed25519_key.pub);
