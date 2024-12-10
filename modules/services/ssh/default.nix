@@ -12,8 +12,7 @@ in
   system.activationScripts = {
     ssh-host-key = lib.mkIf use-host-key {
       text = ''
-        rm -rf /etc/ssh/ssh_host_*
-        cp ${config.age.secrets."${hostname}-host-key".path} /etc/ssh/ssh_host_ed25519_key
+        cp -rf ${config.age.secrets."${hostname}-host-key".path} /etc/ssh/ssh_host_ed25519_key
         chmod 0600 /etc/ssh/ssh_host_ed25519_key
       '';
     };
