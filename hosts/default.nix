@@ -50,6 +50,7 @@
       [
         git
         inputs.agenix.packages.${system}.default
+        rsync
       ];
   };
 
