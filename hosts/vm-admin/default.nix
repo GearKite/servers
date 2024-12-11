@@ -36,6 +36,7 @@
     ssh-key.text = ''
       mkdir -p /home/${username}/.ssh
       cp ${config.age.secrets.vm-admin-id.path} /home/${username}/.ssh/id_ed25519
+      ssh-keygen -y -f ${config.age.secrets.vm-admin-id.path} > /home/${username}/.ssh/id_ed25519.pub
       chown -R ${username}:users /home/${username}/.ssh
       chmod -R 700 /home/${username}/.ssh
     '';
