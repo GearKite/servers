@@ -8,6 +8,6 @@
 {
   imports = [
     ../../modules/services/nixarr
-    ../../modules/disks/data.nix
+    ../../modules/disks/share.nix
   ];
 }
