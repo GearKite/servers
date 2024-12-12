@@ -6,8 +6,8 @@
 
   nixarr = {
     enable = true;
-    mediaDir = "/data/media";
-    stateDir = "/data/media/.state/nixarr";
+    mediaDir = "/data";
+    stateDir = "/data/.state/nixarr";
 
     jellyfin.enable = true;
 
