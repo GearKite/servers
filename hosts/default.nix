@@ -18,6 +18,7 @@
     ./${hostname}
     ../modules/cloud-init
     ../modules/disks
+    ../modules/hosts
     ../modules/users
     ../modules/services/ssh
 
