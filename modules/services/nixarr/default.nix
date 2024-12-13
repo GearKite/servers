@@ -24,6 +24,8 @@
     sonarr.enable = true;
   };
 
+  services.flaresolverr.enable = true;
+
   # Sonarr runs dotnet 6...
   nixpkgs.config.permittedInsecurePackages = [
     "aspnetcore-runtime-6.0.36"
