@@ -1,0 +1,5 @@
+---
+- name: Playbook for testing
+  hosts: dev-vm
+  become: true
+  roles: [zerotier]

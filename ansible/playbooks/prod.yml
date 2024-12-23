@@ -1,0 +1,5 @@
+---
+- name: PLaybook for prod setup on desktops
+  hosts: prodmox
+  become: true
+  roles: [common, sdn, zerotier]

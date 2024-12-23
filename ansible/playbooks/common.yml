@@ -1,0 +1,5 @@
+---
+- name: Playbook for testing common setup
+  hosts: dev-vm
+  become: true
+  roles: [common]
