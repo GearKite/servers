@@ -1,0 +1,15 @@
+---
+- name: Install zerotier
+  apt:
+    name: zerotier-one
+    state: present
+  when: ansible_os_family == "Debian"
+- name: Start zerotier service
+  service:
+    name: zerotier-one
+    sate: started
+    enabled: true
+- name: Join zerotier network
+  command: zerotier-cli join {{ zerotier_netowrk_id }}
+  register: zerotier_join
+  changed_when: "'already joined' not in zerotier_join.stdout"
