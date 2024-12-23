@@ -1,0 +1,5 @@
+---
+- name: Playbook for testing laptop setup
+  hosts: dev-vm
+  become: true
+  roles: [laptop]
