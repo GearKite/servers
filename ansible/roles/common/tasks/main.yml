@@ -1,0 +1,13 @@
+---
+- name: Disable enterprise repository
+  lineinfile:
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    state: absent
+- name: Enable community repository
+  lineinfile:
+    path: /etc/apt/sources.list.d/pve-community.list
+    line: deb http://download.proxmox.com/debian/pve buster pve-no-subscription
+    state: present
+- name: Update APT package index
+  apt:
+    update_cache: true

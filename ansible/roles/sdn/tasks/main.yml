@@ -1,0 +1,50 @@
+---
+- name: Create VXLAN interface
+  command: >
+    pvesh create /nodes/{{ invernotry_hostname }}/network/vxlan
+    --vxlandid {{ vxlan_id }}
+    --bridge {{ vxlan_bridge }}
+    --local {{ local_zerotier_ip }}
+    --remote {{ remote_zerotier_ip }}
+  register: vxlan_result
+- name: VXLAN creation results
+  debug:
+    var: vxlan_result
+- name: Create Management VNet
+  command: >
+    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
+       --bridge vmbr_mgmt
+       --state present
+  register: mgmt_bridge_result
+- name: Create app VNet
+  command: >
+    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
+       --bridge vmbr_app
+       --state present
+  register: app_bridge_result
+- name: Create ingress VNet
+  command: >
+    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
+       --bridge vmbr_ingress
+       --state present
+  register: ingress_bridge_result
+- name: Display bridge creation results
+  debug:
+    msg: 'Management Bridge: {{ mgmt_bridge_result }}, Application Bridge: {{ app_bridge_result }},
+      Ingress Bridge: {{ ingress_bridge_result }}'
+- name: Assign IPv6 addresses to the bridges
+  command: >
+    ip -6 addr add {{ item.address }} dev {{ item.bridge }}
+      loop:
+        - { address: {{ mgm_bridge_ipv6 }}, bridge: "vmbr_mgmt" }
+        - { address: {{ app_bridge_ipv6 }}, bridge: "vmbr_app" }
+        - { address: {{ ingress_bridge_ipv6 }}, bridge: "vmbr_ingress" }
+- name: Enable IPv6 forwarding
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: ^#?net.ipv6.conf.all.forwarding
+    line: net.ipv6.conf.all.forwarding=1
+    notify: Reload sysctl
+  handlers:
+    - name: Reload sysctl
+      command: sysctl -p
