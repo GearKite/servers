@@ -1,7 +1,7 @@
 ---
 - name: Create VXLAN interface
   command: >
-    pvesh create /nodes/{{ invernotry_hostname }}/network/vxlan
+    pvesh create /nodes/{{ inventory_hostname }}/network/vxlan
     --vxlandid {{ vxlan_id }}
     --bridge {{ vxlan_bridge }}
     --local {{ local_zerotier_ip }}
@@ -36,7 +36,7 @@
   command: >
     ip -6 addr add {{ item.address }} dev {{ item.bridge }}
       loop:
-        - { address: {{ mgm_bridge_ipv6 }}, bridge: "vmbr_mgmt" }
+        - { address: {{ mgmt_bridge_ipv6 }}, bridge: "vmbr_mgmt" }
         - { address: {{ app_bridge_ipv6 }}, bridge: "vmbr_app" }
         - { address: {{ ingress_bridge_ipv6 }}, bridge: "vmbr_ingress" }
 - name: Enable IPv6 forwarding
