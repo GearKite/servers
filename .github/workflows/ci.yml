@@ -21,7 +21,3 @@ jobs:
       - name: Run flake checks
         run: |
           nix flake check
-
-      - name: Push all to Cachix
-        run: |
-          nix path-info --all | cachix push gk-arc2
