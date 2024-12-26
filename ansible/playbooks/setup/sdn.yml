@@ -1,5 +1,5 @@
 ---
 - name: Playbook for testing SDN setup
-  hosts: dev-vm
+  hosts: dev_vm
   become: true
   roles: [sdn]
