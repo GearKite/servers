@@ -1,8 +1,0 @@
----
-vxlan_id: 100
-vxlan_bridge: vmbr_vxlan
-local_zerotier_ip:
-remote_zerotier_ip:
-mgmt_bridge_ipv6:
-app_bridge_ipv6:
-ingress_bridge_ipv6:

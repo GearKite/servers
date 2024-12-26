@@ -45,6 +45,3 @@
     regexp: ^#?net.ipv6.conf.all.forwarding
     line: net.ipv6.conf.all.forwarding=1
     notify: Reload sysctl
-  handlers:
-    - name: Reload sysctl
-      command: sysctl -p

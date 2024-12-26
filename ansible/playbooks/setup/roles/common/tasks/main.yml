@@ -1,0 +1,19 @@
+---
+- name: Disable enterprise Proxmox repository
+  file:
+    path: /etc/apt/sources.list.d/pve-enterprise.list
+    state: absent
+- name: Disable enterprise Ceph repository
+  file:
+    path: /etc/apt/sources.list.d/ceph.list
+    state: absent
+- name: Enable community repository
+  lineinfile:
+    path: /etc/apt/sources.list.d/pve-community.list
+    line: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+    create: true
+    state: present
+- name: Update APT package index & upgrade
+  apt:
+    update_cache: true
+    upgrade: true

@@ -6,8 +6,3 @@
     line: HandleLidSwitch=ignore
     state: present
   notify: restart systemd-logind
-  handlers:
-    - name: restart systemd-logind
-      systemd:
-        name: systemd-logind
-        state: restarted

@@ -1,0 +1,8 @@
+---
+vxlan_id: 100
+vxlan_bridge: vmbr_vxlan
+local_zerotier_ip:
+remote_zerotier_ip:
+mgmt_bridge_ipv6: "fd5e:934f:acab:ffff::ffff"
+app_bridge_ipv6: "fd5e:934f:acab:0001::ffff"
+ingress_bridge_ipv6: "fd5e:934f:acab:0002::ffff"
