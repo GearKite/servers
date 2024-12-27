@@ -1,47 +1,39 @@
 ---
+
+- name: Check if VXLAN already exists
+  command: >
+    pvesh ls cluster/sdn/zones
+  register: vxlan_output
+  changed_when: false
+
 - name: Create VXLAN interface
   command: >
-    pvesh create /nodes/{{ inventory_hostname }}/network/vxlan
-    --vxlandid {{ vxlan_id }}
-    --bridge {{ vxlan_bridge }}
-    --local {{ local_zerotier_ip }}
-    --remote {{ remote_zerotier_ip }}
-  register: vxlan_result
-- name: VXLAN creation results
-  debug:
-    var: vxlan_result
-- name: Create Management VNet
+    pvesh create cluster/sdn/zones --type vxlan --zone {{ vxlan_id }} --peers {{ vxlan_peer_ips }}
+  when: vxlan_id not in vxlan_output.stdout
+
+- name: Check existing VNets
   command: >
-    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
-       --bridge vmbr_mgmt
-       --state present
-  register: mgmt_bridge_result
-- name: Create app VNet
+    pvesh ls cluster/sdn/vnets
+  register: vnet_output
+  changed_when: false
+
+- name: Create VNet if it does not exist
   command: >
-    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
-       --bridge vmbr_app
-       --state present
-  register: app_bridge_result
-- name: Create ingress VNet
+    pvesh create cluster/sdn/vnets --vnet {{ item.id }} --zone arc2 --tag {{ item.tag }} &&
+    pvesh create cluster/sdn/vnets/{{ item.id }}/subnets --type subnet --subnet {{ item.cidr }}
+  when: item.id not in vnet_output.stdout
+  loop: "{{ vnets }}"
+  register: vnet_creation_output
+
+- name: Create Subnet for each VNet
   command: >
-    pvesh create /nodes/{{ inventory_hostname }}/network/bridge
-       --bridge vmbr_ingress
-       --state present
-  register: ingress_bridge_result
-- name: Display bridge creation results
-  debug:
-    msg: 'Management Bridge: {{ mgmt_bridge_result }}, Application Bridge: {{ app_bridge_result }},
-      Ingress Bridge: {{ ingress_bridge_result }}'
-- name: Assign IPv6 addresses to the bridges
-  command: >
-    ip -6 addr add {{ item.address }} dev {{ item.bridge }}
-      loop:
-        - { address: {{ mgmt_bridge_ipv6 }}, bridge: "vmbr_mgmt" }
-        - { address: {{ app_bridge_ipv6 }}, bridge: "vmbr_app" }
-        - { address: {{ ingress_bridge_ipv6 }}, bridge: "vmbr_ingress" }
+    pvesh create cluster/sdn/vnets/{{ item.id }}/subnets --type subnet --subnet {{ item.cidr }}
+  loop: "{{ vnets }}"
+  ignore_errors: yes 
+
 - name: Enable IPv6 forwarding
   lineinfile:
     path: /etc/sysctl.conf
     regexp: ^#?net.ipv6.conf.all.forwarding
     line: net.ipv6.conf.all.forwarding=1
-    notify: Reload sysctl
+  notify: Reload sysctl

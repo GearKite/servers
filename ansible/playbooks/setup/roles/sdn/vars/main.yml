@@ -1,8 +1,22 @@
 ---
-vxlan_id: 100
-vxlan_bridge: vmbr_vxlan
-local_zerotier_ip:
-remote_zerotier_ip:
-mgmt_bridge_ipv6: "fd5e:934f:acab:ffff::ffff"
-app_bridge_ipv6: "fd5e:934f:acab:0001::ffff"
-ingress_bridge_ipv6: "fd5e:934f:acab:0002::ffff"
+# VXLAN Zone (Cluster-wide network)
+# Name
+vxlan_id: arc2
+# Comma-separated (Zerotier) IPs for all nodes
+vxlan_peer_ips: 127.0.0.1
+
+# VNets
+# (ID needs to be <=8 characters)
+vnets:
+  - id: PMgmt
+    alias: ProdManagment
+    cidr: fd5e:934f:acab:ffff::/64
+    tag: 100
+  - id: PApp
+    alias: ProdApp
+    cidr: fd5e:934f:acab:0001::/64
+    tag: 101
+  - id: PIn
+    alias: ProdIngress
+    cidr: fd5e:934f:acab:0002::/64
+    tag: 102
