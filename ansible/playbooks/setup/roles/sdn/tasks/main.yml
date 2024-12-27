@@ -37,3 +37,7 @@
     regexp: ^#?net.ipv6.conf.all.forwarding
     line: net.ipv6.conf.all.forwarding=1
   notify: Reload sysctl
+
+- name: Reload & apply SDNs
+  command: >
+    pvesh set cluster/sdn
