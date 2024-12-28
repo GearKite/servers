@@ -1,0 +1,5 @@
+---
+- name: Proxmox configuration 
+  hosts: prodmox
+  become: true
+  roles: [sdn]

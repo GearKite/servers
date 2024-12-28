@@ -1,5 +1,0 @@
----
-- name: Playbook for prod setup of proxmox on a laptop
-  hosts: prodmox
-  become: true
-  roles: [common, sdn, zerotier, laptop]
