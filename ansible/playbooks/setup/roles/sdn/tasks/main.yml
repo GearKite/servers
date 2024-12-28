@@ -19,8 +19,7 @@
 
 - name: Create VNet if it does not exist
   command: >
-    pvesh create cluster/sdn/vnets --vnet {{ item.id }} --zone arc2 --tag {{ item.tag }} &&
-    pvesh create cluster/sdn/vnets/{{ item.id }}/subnets --type subnet --subnet {{ item.cidr }}
+    pvesh create cluster/sdn/vnets --vnet {{ item.id }} --zone arc2 --tag {{ item.tag }}
   when: item.id not in vnet_output.stdout
   loop: "{{ vnets }}"
   register: vnet_creation_output
