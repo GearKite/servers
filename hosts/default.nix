@@ -94,4 +94,13 @@
 
   # VMs don't have passwords, need to auto login to access via tty
   services.getty.autologinUser = lib.mkDefault username;
+
+  # Apply configurations from Git
+  system.autoUpgrade = {
+    enable = true;
+    dates = "Tue,Thu 10:00";
+    randomizedDelaySec = "45min";
+    persistent = true;
+    flake = "github:gearkite/servers#${hostname}";
+  };
 }
