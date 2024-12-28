@@ -33,3 +33,12 @@
   command: zerotier-cli join {{ zerotier_netowrk_id }}
   register: zerotier_join
   when: zerotier_netowrk_id not in zerotier_networks.stdout
+
+- name: Get ZeroTier info
+  command: zerotier-cli info
+  register: zerotier_info
+  changed_when: false
+
+- name: Display ZeroTier info
+  debug:
+    var: zerotier_info.stdout
