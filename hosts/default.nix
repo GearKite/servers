@@ -103,4 +103,7 @@
     persistent = true;
     flake = "github:gearkite/servers#${hostname}";
   };
+
+  # Enable QEMU Guest agent (for VMs)
+  services.qemuGuest.enable = true;
 }
