@@ -6,11 +6,13 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
     deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     nixarr.url = "github:rasmus-kirk/nixarr";
+    nixarr.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, deploy-rs, ... }@inputs:
     let
