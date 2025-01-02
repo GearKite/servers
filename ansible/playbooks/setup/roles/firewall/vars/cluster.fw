@@ -1,0 +1,9 @@
+[OPTIONS]
+
+enable: 1
+
+[RULES]
+
+IN ACCEPT -p tcp -dport 22 -log nolog # SSH
+IN ACCEPT -p icmp -log nolog # Ping
+IN ACCEPT -p tcp -dport 8006 -log nolog # PVE Web GUI

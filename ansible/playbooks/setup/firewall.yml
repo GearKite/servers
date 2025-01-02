@@ -1,0 +1,5 @@
+---
+- name: Playbook for testing firewall setup
+  hosts: dev_vm
+  become: true
+  roles: [firewall]

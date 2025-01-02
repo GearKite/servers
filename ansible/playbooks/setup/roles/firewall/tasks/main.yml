@@ -1,0 +1,13 @@
+---
+- name: Create /etc/pve/firewall/
+  file:
+    path: /etc/pve/firewall/
+    state: directory
+    group: www-data
+
+- name: Configure cluster firewall
+  copy:
+    src: ../vars/cluster.fw
+    dest: /etc/pve/firewall/cluster.fw
+    backup: true
+    group: www-data
