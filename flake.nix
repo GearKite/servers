@@ -49,19 +49,19 @@
       deploy.nodes = {
         # TODO: use hostnames instead of hardcoded IPs
         vm-admin = {
-          hostname = "fdc6:b53a:280e:095::100";
+          hostname = "fd5e:934f:acab:ffff::6001";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-admin;
           profiles.system.user = "root";
           profiles.system.sshUser = vmUsername;
         };
         vm-public-ingress = {
-          hostname = "fdc6:b53a:280e:095::101";
+          hostname = "fd5e:934f:acab:ffff::6003";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-public-ingress;
           profiles.system.user = "root";
           profiles.system.sshUser = vmUsername;
         };
         vm-public-media = {
-          hostname = "fdc6:b53a:280e:095::102";
+          hostname = "fd5e:934f:acab:ffff::6002";
           profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vm-public-media;
           profiles.system.user = "root";
           profiles.system.sshUser = vmUsername;
