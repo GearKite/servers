@@ -2,4 +2,4 @@
 - name: Playbook for testing
   hosts: dev_vm
   become: true
-  roles: [common, sdn, zerotier, laptop]
+  roles: [common, sdn, zerotier, laptop, 9p]

@@ -2,4 +2,4 @@
 - name: Proxmox initial setup
   hosts: prodmox
   become: true
-  roles: [laptop, common, zerotier]
+  roles: [laptop, common, zerotier, 9p]
