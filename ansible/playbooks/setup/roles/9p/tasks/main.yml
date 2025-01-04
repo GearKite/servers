@@ -1,0 +1,11 @@
+---
+- name: Add kernel modules to initramfs-tools/modules
+  lineinfile:
+    path: /etc/initramfs-tools/modules
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "9p"
+    - "9pnet"
+    - "9pnet_virtio"
+  notify: Update initramfs
